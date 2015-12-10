@@ -25,7 +25,7 @@ public class MovieController {
 	@RequestMapping("/Movie")
 	public String movie(){
 		logger.info("MovieController-Movie() 진입");
-		return "movie/Movie.tiles";
+		return "movie/Movie.jsp";
 	}
 	@RequestMapping("/movie_info")
 	public Model movieInfo(Model model){
@@ -77,10 +77,10 @@ public class MovieController {
 		return movie;
 	}
 	@RequestMapping("/movie_Chart")
-	public String movieChart(String filmNumber, Model model){
+	public Model movieChart(Model model){
 		logger.info("MovieController-movieChart() 진입");
 		List<MovieVO> list = service.getList();
 		model.addAttribute("movieList2", list);
-		return "movie/movie_Chart";
+		return model;
 	}
 }

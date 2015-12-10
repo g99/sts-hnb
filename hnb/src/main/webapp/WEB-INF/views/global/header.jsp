@@ -70,10 +70,15 @@
             </div>
             <!-- /.navbar-collapse -->
     </nav>
-<script src="${context}/js/global.js"></script>  
-<script src="${context}/js/jquery.js"></script>
-<script src="${context}/js/bootstrap.js"></script>
-<script src="${context}/js/bootstrap.min.js"></script>
+<script src="${js}/global.js"></script>  
+<script src="${js}/admin.js"></script>  
+<script src="${js}/member.js"></script>
+<script src="${js}/movie.js"></script>
+<script src="${js}/ticket.js"></script>
+<script src="${js}/bom.js"></script>
+<script src="${js}/jquery.js"></script>
+<script src="${js}/bootstrap.js"></script>
+<script src="${js}/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(window).on("popstate", function(event) {
@@ -108,6 +113,7 @@
 		
 		/* 네비게이션 버튼 */
 		$("#movie_btn").click(function() {
+			alert("영화버튼 클릭");
 			history.pushState("Movie_home","","");
 			Movie.home("${context}");
 		});
