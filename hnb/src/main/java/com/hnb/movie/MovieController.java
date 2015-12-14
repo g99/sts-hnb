@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,10 +78,12 @@ public class MovieController {
 		return movie;
 	}
 	@RequestMapping("/movie_Chart")
-	public Model movieChart(Model model){
+	public @ResponseBody List<MovieVO> movieChart(){
 		logger.info("MovieController-movieChart() 진입");
 		List<MovieVO> list = service.getList();
-		model.addAttribute("movieList2", list);
-		return model;
+		System.out.println("서비스 리턴값 :" + list); 
+		logger.info("서비스 리턴값 : {}", list);
+		/*model.addAttribute("movieList2", list);*/
+		return list;
 	}
 }

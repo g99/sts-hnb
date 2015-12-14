@@ -1,6 +1,6 @@
 package com.hnb.admin;
 
-import java.util.List;
+/*import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -22,3 +22,4 @@ public class AdminServiceImpl implements AdminService{
 		return memberService.getList();
 	}
 }
+*/

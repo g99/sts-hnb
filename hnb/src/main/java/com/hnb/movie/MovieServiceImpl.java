@@ -2,49 +2,48 @@ package com.hnb.movie;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.hnb.mapper.MovieMapper;
+
+
 @Service
-public class MovieServiceImpl implements MovieService  {
+public class MovieServiceImpl implements MovieService{
+	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+	@Autowired MovieDAOImpl dao;
+	@Autowired private SqlSession sqlSession;
 	
-	@Autowired
-	MovieDAOImpl dao;
-
-	@Override
+	@Override	//영화등록
 	public int register(MovieVO o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.insert(o);
 	}
-
-	@Override
+	@Override	//영화수정
 	public int change(MovieVO o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.update(o);
 	}
-
-	@Override
+	@Override	//영화삭제
 	public int remove(String filmNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.delete(filmNumber);
 	}
-
-	@Override
+	@Override	//영화제목으로 검색
 	public MovieVO searchByName(String filmName) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectNameBy(filmName);
 	}
-
-	@Override
+	@Override	//영화전체목록
 	public List<MovieVO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("MovieServiceImpl : getList() ");
+		MovieMapper mapper = sqlSession.getMapper(MovieMapper.class); // 인터페이스를 구현하는 클래스
+		List<MovieVO> list = mapper.selectAll();
+		logger.info("마이바티스 : {}", list);
+		return list;
 	}
-
 	@Override
 	public List<MovieVO> getFilmNum() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectChart();
 	}
 	
-
 }
