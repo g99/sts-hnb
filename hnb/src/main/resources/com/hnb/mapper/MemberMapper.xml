@@ -15,7 +15,7 @@
 	 	ADDR AS addr,
 	 	EMAIL AS email,
 	 	REGDATE AS regdate
- 	FROM (SELECT ROWNUM AS seq, m.* FROM MEMBER m)
+ 	FROM (SELECT ROWNUM AS seq, member.* FROM MEMBER member)
  	WHERE seq BETWEEN #{start} AND #{end}
  </select>
  <select id="selectSomeBy" resultType="com.hnb.member.MemberVO" parameterType="com.hnb.global.Command">
@@ -29,7 +29,11 @@
 	 	ADDR AS addr,
 	 	EMAIL AS email,
 	 	REGDATE AS regdate
- 	FROM MEMBER WHERE #{column} = #{keyword}
+ 	FROM (SELECT ROWNUM AS seq, m.* FROM (
+ 		SELECT * FROM MEMBER
+ 		WHERE ${column} LIKE '%' || #{keyword} || '%' <!-- => WHERE NAME LIKE '%홍%' --> 
+ 	) m)
+ 	WHERE seq BETWEEN #{start} AND #{end}
  </select>
  <select id="selectOneBy" resultType="com.hnb.member.MemberVO" parameterType="string">
  	SELECT
@@ -46,6 +50,12 @@
  </select>
  <select id="count" resultType="int">
  	SELECT COUNT(*) AS count FROM MEMBER
+ </select>
+ 
+ <select id="countByKeyword" resultType="int" parameterType="com.hnb.global.Command">
+ SELECT COUNT(*) AS count 
+ FROM MEMBER
+ WHERE ${column} LIKE '%' || #{keyword} || '%'
  </select>
  
  <insert id="insert" parameterType="com.hnb.member.MemberVO">

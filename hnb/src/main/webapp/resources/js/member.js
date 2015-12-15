@@ -3,7 +3,7 @@ var Member = {
 			$("#box").load(project + "/member/Member.do");
 		},
 		login : function(project) {
-			$.ajax(project + "/member/Member.do?page=login",{
+			$.ajax(project + "/member/login",{
 				data : {
 					id : $(".form-2 input:text[name=login]").val(),
 					pw : $(".form-2 input:password[name=password]").val()
@@ -11,10 +11,12 @@ var Member = {
 				dataType : "json",
 				success : function(data) {
 					//로그인 결과가 성공이면
-					if(data.result === "success"){
-						$("#frm_toggle").load(project + "/global/Main.do?page=header #frm_logined");
+					if(data != null){
+						alert("로그인 성공!!!!!!!");
+						/*$("#frm_toggle").load(project + "/global/Main.do?page=header #frm_logined");*/
+						location.href = project+"/member/mypage";
 						// 관리자 아이디로 확인되면
-						if(data.admin === "yes") {
+						if(member.id === "choa") {
 							$("#outbox").append(
 								'<table id="admin_nav"><tr><td><button id="admin_home">홈</button></td></tr>'+
 								'<tr><td><button id="admin_member">회원관리</button></td></tr>'+
@@ -46,16 +48,7 @@ var Member = {
 			});
 		},
 		logout : function(project) {
-			$.ajax(project + "/member/Member.do?page=logout",{
-				dataType : "json",
-				success : function(data) {
-					$("#frm_toggle").empty().load(project + "/global/Main.do?page=header #frm_login");
-					$("#box").load(project + "/global/Main.do?page=default");
-					$("#admin_nav").remove();
-				},
-				error : function() {
-				}
-			});
+					location.href = project+"/member/logout"; 
 		},
 		
 		/* 회원가입 html */
