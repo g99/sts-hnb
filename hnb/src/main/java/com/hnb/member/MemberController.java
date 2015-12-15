@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -130,10 +131,12 @@ public class MemberController {
 		logger.info("멤버컨트롤러 mypage() - 진입");
 		return "member/mypage.tiles";
 	}
-	@RequestMapping("/detail")
-	public Model detail(Model model){
+	@RequestMapping("/detail/{id}")
+	public @ResponseBody MemberVO detail(
+		@PathVariable("id")String id){
 		logger.info("멤버컨트롤러 detail() - 진입");
-		return model;
+		member = service.selectById(id);
+		return member;
 	}
 	
 }
