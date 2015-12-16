@@ -1,7 +1,5 @@
 package com.hnb.member;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.hnb.global.Constants;
+import com.hnb.global.FileUpload;
 
 
 
@@ -87,7 +90,7 @@ public class MemberController {
 		logger.info("멤버컨트롤러 logout() - 진입");
 		status.setComplete();
 		model.addAttribute("result", "success");
-		return "global/default.tiles";
+		return "redirect:/"; /* 메인컨트롤러로 감 */ 
 	}
 	@RequestMapping("/login")
 	public @ResponseBody MemberVO login(
@@ -134,9 +137,38 @@ public class MemberController {
 	@RequestMapping("/detail/{id}")
 	public @ResponseBody MemberVO detail(
 		@PathVariable("id")String id){
+		logger.info("디테일 id {}", id);
 		logger.info("멤버컨트롤러 detail() - 진입");
 		member = service.selectById(id);
 		return member;
 	}
 	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public @ResponseBody MemberVO update(
+			@RequestParam(value="file", required=false)MultipartFile multipartFile,
+			@RequestParam("password")String password,
+			@RequestParam("addr")String addr,
+			@RequestParam("email")String email,
+			@RequestParam("phone")String phone,
+			@RequestParam("id")String id
+			) {
+		logger.info("update() 진입");
+		String path = Constants.IMAGE_DOMAIN + "resources\\images\\";
+		FileUpload fileUpload = new FileUpload();
+		String fileName = multipartFile.getOriginalFilename();
+		String fullPath = fileUpload.uploadFile(multipartFile, path, fileName);
+		logger.info("풀패스 : {}", fullPath);
+		member.setPassword(password);
+		member.setAddr(addr);
+		member.setEmail(email);
+		member.setPhone(phone);
+		member.setProfile(fileName);
+		int result = service.change(member);
+		if (result != 0) {
+			logger.info("업데이트 성공");
+		} else {
+			logger.info("업데이트 실패");
+		}
+		return member;
+	}
 }

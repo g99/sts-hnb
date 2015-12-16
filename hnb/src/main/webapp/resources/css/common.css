@@ -5,6 +5,7 @@
 
 @CHARSET "UTF-8";
 @IMPORT url("movie.css");
+@IMPORT url("board.css");
 @IMPORT url("bootstrap.css");
 @IMPORT url("business-casual.css");
 @IMPORT url("bootstrap.min.css");
@@ -12,7 +13,6 @@
 @IMPORT url("admin.css");
 @IMPORT url("ticket.css");
 @IMPORT url("global.css");
-
 
 
 

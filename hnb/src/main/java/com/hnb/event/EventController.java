@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hnb.article.ArticleServiceImpl;
+import com.hnb.article.ArticleVO;
 import com.hnb.global.Command;
 import com.hnb.global.CommandFactory;
 import com.hnb.member.MemberController;
@@ -24,19 +27,23 @@ public class EventController {
 	
 	@Autowired MemberServiceImpl service;
 	@Autowired MemberVO member;
+	@Autowired ArticleVO article;
+	@Autowired ArticleServiceImpl articleService;
 	
 	/*RESTful 방식 (url 에 {}이 있어서 @PathVariable 사용한 경우)*/
+	@RequestMapping("/boardhome")
+	public String boardList(){
+		return "event/boardList.tiles";
+	}
+	
 	@RequestMapping("/boardList/{pageNo}")
-	public String boardList(
+	public @ResponseBody List<ArticleVO> boardList(
 			@PathVariable("pageNo")String pageNo,
 			Model model){
 		logger.info("이벤트홈 입장!!!!");
 		logger.info("넘어온 페이지 번호 : {}", pageNo);
-		Command command = CommandFactory.list(pageNo);
-		model.addAttribute("member", service.getList(command));
-		model.addAttribute("count", service.count());
-		model.addAttribute("pageNo", pageNo);
-		return "event/boardList.tiles";
+		List<ArticleVO> list = articleService.getList(CommandFactory.list(pageNo));
+		return list;
 	}
 	
 	/*SOAP 방식 처리 (url에 ? 있는경우, 즉 쿼리스트링을 사용한 경우)*/

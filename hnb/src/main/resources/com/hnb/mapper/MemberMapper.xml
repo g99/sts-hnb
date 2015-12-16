@@ -14,7 +14,8 @@
 	 	PHONE AS phone,
 	 	ADDR AS addr,
 	 	EMAIL AS email,
-	 	REGDATE AS regdate
+	 	REGDATE AS regdate,
+	 	PROFILE AS profile
  	FROM (SELECT ROWNUM AS seq, member.* FROM MEMBER member)
  	WHERE seq BETWEEN #{start} AND #{end}
  </select>
@@ -45,7 +46,8 @@
 	 	PHONE AS phone,
 	 	ADDR AS addr,
 	 	EMAIL AS email,
-	 	REGDATE AS regdate
+	 	REGDATE AS regdate,
+	 	PROFILE AS profile
  	FROM MEMBER WHERE ID = #{id}
  </select>
  <select id="count" resultType="int">
@@ -77,7 +79,8 @@
 		PASSWORD = #{password}, 
 		ADDR = #{addr}, 
 		PHONE = #{phone}, 
-		EMAIL = #{email} 
+		EMAIL = #{email},
+		PROFILE = #{profile}
 	WHERE ID = #{id}	
  </update>
  <delete id="delete" parameterType="string">
