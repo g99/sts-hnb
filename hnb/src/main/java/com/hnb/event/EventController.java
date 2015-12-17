@@ -33,6 +33,7 @@ public class EventController {
 	/*RESTful 방식 (url 에 {}이 있어서 @PathVariable 사용한 경우)*/
 	@RequestMapping("/boardhome")
 	public String boardList(){
+		logger.info("boardhome() 진입");
 		return "event/boardList.tiles";
 	}
 	
@@ -40,7 +41,7 @@ public class EventController {
 	public @ResponseBody List<ArticleVO> boardList(
 			@PathVariable("pageNo")String pageNo,
 			Model model){
-		logger.info("이벤트홈 입장!!!!");
+		logger.info("boardList() 진입");
 		logger.info("넘어온 페이지 번호 : {}", pageNo);
 		List<ArticleVO> list = articleService.getList(CommandFactory.list(pageNo));
 		return list;
@@ -70,7 +71,7 @@ public class EventController {
 			@RequestParam("keyword")String keyword,
 			@RequestParam("column")String column,
 			Model model){
-		logger.info("이벤트홈 입장!!!!");
+		logger.info("memberSearch() 진입");
 		logger.info("넘어온 페이지 번호 : {}", pageNo);
 		logger.info("넘어온 컬럼 : {}", column);
 		logger.info("넘어온  검색어 : {}", keyword);
