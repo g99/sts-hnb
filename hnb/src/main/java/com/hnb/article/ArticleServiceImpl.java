@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public ArticleVO selectById(int rcdNo) {
 		ArticleMapper mapper = sqlSession.getMapper(ArticleMapper.class);
-		return mapper.selectById(rcdNo);
+		return mapper.selectByRcdNo(rcdNo);
 	}
 	@Override
 	public int count() {

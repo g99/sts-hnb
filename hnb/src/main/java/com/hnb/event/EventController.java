@@ -1,6 +1,9 @@
 package com.hnb.event;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +41,17 @@ public class EventController {
 	}
 	
 	@RequestMapping("/boardList/{pageNo}")
-	public @ResponseBody List<ArticleVO> boardList(
+	public @ResponseBody Map boardList(
 			@PathVariable("pageNo")String pageNo,
 			Model model){
 		logger.info("boardList() 진입");
 		logger.info("넘어온 페이지 번호 : {}", pageNo);
+		int count = articleService.count();
 		List<ArticleVO> list = articleService.getList(CommandFactory.list(pageNo));
-		return list;
+		Map result = new HashMap();
+		result.put("count", count);
+		result.put("list", list);
+		return result;
 	}
 	
 	/*SOAP 방식 처리 (url에 ? 있는경우, 즉 쿼리스트링을 사용한 경우)*/

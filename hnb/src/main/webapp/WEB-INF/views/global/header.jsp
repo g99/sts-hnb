@@ -12,10 +12,10 @@
 	   	<!-- 로그인 안한 상태 -->
 		<div id="frm_login" class="form-2">
 			<p class="float">
-				<label for="login"><i class="icon-user">ID</i></label> <input type="text" name="login" placeholder="UserID">
+				<label for="login"><i class="icon-user">ID</i></label> <input type="text" id="id" name="id" placeholder="UserID">
 			</p>
 			<p class="float">
-				<label for="password"><i class="icon-user">PW</i></label> <input type="password" name="password" placeholder="Password" class="showpassword">
+				<label for="password"><i class="icon-user">PW</i></label> <input type="password" id="password" name="password" placeholder="Password" class="showpassword">
 			</p>
 			<p class="clearfix">
 				<a id="join_btn" class="log-twitter">회원 가입</a> 
@@ -64,7 +64,10 @@
                         <button id="theater_btn">극장</button>
                     </li>
                     <li>
-                        <button id="event_btn">이벤트&컬쳐</button>
+                        <button id="event_btn">게시판</button>
+                    </li>
+                    <li>
+                        <button id="admin_btn">관리자</button>
                     </li>
                 </ul>
             </div>
@@ -95,6 +98,10 @@
 		
 		$("#event_btn").click(function() {
 			location.href=context + "/event/boardhome";
+		});
+		
+		$("#admin_btn").click(function() {
+			location.href=context + "/admin/main";
 		});
 		
 		/* 로그인 버튼 */
