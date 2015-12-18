@@ -26,7 +26,7 @@ import com.hnb.member.MemberVO;
 @Controller
 @RequestMapping("/event")
 public class EventController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	
 	@Autowired MemberServiceImpl service;
 	@Autowired MemberVO member;

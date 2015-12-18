@@ -64,7 +64,7 @@
                         <button id="theater_btn">극장</button>
                     </li>
                     <li>
-                        <button id="event_btn">게시판</button>
+                        <button id="article_btn">게시판</button>
                     </li>
                     <li>
                         <button id="admin_btn">관리자</button>
@@ -96,8 +96,8 @@
 			$("#box").load();
 		});
 		
-		$("#event_btn").click(function() {
-			location.href=context + "/event/boardhome";
+		$("#article_btn").click(function() {
+			location.href=context + "/article/home";
 		});
 		
 		$("#admin_btn").click(function() {

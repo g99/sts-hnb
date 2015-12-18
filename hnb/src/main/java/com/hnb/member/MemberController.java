@@ -91,27 +91,27 @@ public class MemberController {
 		model.addAttribute("result", "success");
 		return "redirect:/"; /* 메인컨트롤러로 감 */ 
 	}
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public @ResponseBody MemberVO login(
-			@RequestBody MemberVO param,
-		    Model model){
-		logger.info("멤버컨트롤러 login() - 진입");
-		logger.info("유저아이디 : {}", param.getId());
-		logger.info("유저 비밀번호: {}", param.getPassword());
-		member = service.login(param.getId(), param.getPassword());
-		model.addAttribute("user", member);
-		if (member.getId().equals(param.getId())) {
-		logger.info("로그인 성공!!!!!!!!!!!!!");
-		} else {
-			logger.info("로그인 실패!!!!!!!!");
-		}
-			if (member.getId().equals("choa")) {
-				model.addAttribute("admin", "yes");
+		@RequestMapping(value="/login", method=RequestMethod.POST)
+		public @ResponseBody MemberVO login(
+				@RequestBody MemberVO param,
+			    Model model){
+			logger.info("멤버컨트롤러 login() - 진입");
+			logger.info("유저아이디 : {}", param.getId());
+			logger.info("유저 비밀번호: {}", param.getPassword());
+			member = service.login(param.getId(), param.getPassword());
+			model.addAttribute("user", member);
+			if (member.getId().equals(param.getId())) {
+			logger.info("로그인 성공!!!!!!!!!!!!!");
 			} else {
-				model.addAttribute("admin", "no");
+				logger.info("로그인 실패!!!!!!!!");
 			}
-		return member;
-	}
+				if (member.getId().equals("choa")) {
+					model.addAttribute("admin", "yes");
+				} else {
+					model.addAttribute("admin", "no");
+				}
+			return member;
+		}
 	@RequestMapping("/check_Overlap")
 	public Model checkOverlap(
 			String id,

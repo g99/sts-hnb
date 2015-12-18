@@ -49,12 +49,31 @@ public class AdminController {
 	public @ResponseBody Map<String,Object> memberList(
 			@PathVariable("pageNo")String pageNo,
 			Model model){
+		
+		int pageNumber = Integer.parseInt(pageNo);
+		int pageSize = 5;
+		int groupSize = 3;
+		int count = memberService.count();
+		int totalPage = count/pageSize;
+		if (count%pageSize != 0) {
+			totalPage += 1;
+		}
+		int startPage = pageNumber - ((pageNumber-1) % groupSize);
+		int lastPage = startPage + groupSize -1;
+		if (lastPage > totalPage) {
+			lastPage = totalPage;
+		}
+		
 		logger.info("EventController memberList()");
 		logger.info("넘어온 페이지번호 : {}",pageNo);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", memberService.getList(CommandFactory.list(pageNo)));
-		map.put("count", memberService.count());
-		map.put("pageNo", pageNo);
+		map.put("count", count);
+		map.put("totalPage", totalPage);
+		map.put("pageNo", pageNumber);
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
+		map.put("groupSize", groupSize);
 		return map;
 	}
 	
