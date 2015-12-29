@@ -20,6 +20,7 @@ import com.hnb.member.MemberVO;
 import com.hnb.movie.MovieServiceImpl;
 import com.hnb.movie.MovieVO;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

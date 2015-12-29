@@ -38,7 +38,7 @@
       	CUT AS cut,
       	TRAILER AS trailer,
       	COUNTRY AS country
-      FROM MOIVE WHERE FILM_NUMBER = #{filmNumber}
+      FROM MOVIE WHERE FILM_NUMBER = #{filmNumber}
       </select>
       
       <insert id="insert" parameterType="com.hnb.movie.MovieVO" >

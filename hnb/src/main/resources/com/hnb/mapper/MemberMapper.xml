@@ -15,8 +15,7 @@
 	 	ADDR AS addr,
 	 	EMAIL AS email,
 	 	REGDATE AS regdate,
-	 	PROFILE AS profile
- 	FROM (SELECT ROWNUM AS seq, member.* FROM MEMBER member)
+ 	FROM (SELECT @rownum:=@rownum+1 AS seq, member.* FROM MEMBER member) AS sum
  	WHERE seq BETWEEN #{start} AND #{end}
  </select>
  <select id="selectSomeBy" resultType="com.hnb.member.MemberVO" parameterType="com.hnb.global.Command">
