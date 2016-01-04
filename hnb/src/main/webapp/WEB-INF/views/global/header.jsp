@@ -93,7 +93,7 @@
 		});
 		
 		$("#theater_btn").click(function() {
-			$("#box").load();
+			location.href = context + "/global/new";
 		});
 		
 		$("#article_btn").click(function() {

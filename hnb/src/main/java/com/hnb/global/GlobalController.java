@@ -34,6 +34,10 @@ public class GlobalController {
 	public String footer(){
 		return "global/footer";
 	}
+	@RequestMapping("/new")
+	public String home(){
+		return "global/new.jsp";
+	}
 }
 
 
